@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
-// const Provider = require('./Provider');
+const DB = require('./DB');
 const router = require('koa-router')();
 const app = new Koa();
 // const provider = new Provider();
@@ -15,22 +15,23 @@ class App{
 		// super();
 		this.config = config;
 		this.base = base;
+		this.db = {};
 	}
 
 	async strat(data){
 
-		console.log(`注入控制器`)
+		DB.getTableName();
+		console.log(`注册路由`)
 		this.route = await this.base.createRoute({router});
-		// console.log(`注册控制器`)
 		app.use(this.route.routes());
 
 		console.log(`项目启动,端口号：${this.config.port || port}`)
 		app.listen(this.config.port || port)
 	}
 
-	// async createRoute(){
-
-	// 	return;
-	// }
+	async createDb(){
+		this.db.mysql = await DB.createMysql(this.config.db.mysql);
+		return;
+	}
 }
 module.exports = App;

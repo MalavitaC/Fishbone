@@ -1,55 +1,26 @@
-const router = require('koa-router')();
+const Sequelize = require('sequelize');
 
-class registerControllers {
+class DB {
 
-  async addControllers(controllerFiles) {
+  static async createMysql(options) {
 
-    for (let i in controllerFiles) {
-      console.log(`process controller: ${controllerFiles[i]}...`)
-      let routes = require(`../controllers/${controllerFiles[i]}`)
-      await this.addRoutes(router, routes)
+    try{
+      this.tablePrefix = options.tablePrefix;
+      var sequelize = new Sequelize(options.dbname,options.username,options.password,options.options);
+      console.log('mysql连接')
+    }catch(e){
+      console.log(e)
     }
-    return router.routes();
+
+    return sequelize;
   }
 
-  async addRoutes(routes) {
+  static getTableName(name) {
 
-    let ctl = new routes.fn();
-    let route = Object.getOwnPropertyNames(routes.fn.prototype).sort();
-    for (var i = route.length - 1; i >= 1; i--) {
-      
-      router.all(`/${routes.name}/${route[i]}`, ctl[route[i]]);
-    }
+    console.log('getTableName')
+    console.log(this.tablePrefix)
+    return `${this.tablePrefix}_${name}`;
   }
 };
 
-module.exports = new registerControllers();
-// function addRoutes(router, routes) {
-
-//   let ctl = new routes.fn();
-//   let route = Object.getOwnPropertyNames(routes.fn.prototype).sort();
-//   for (var i = route.length - 1; i >= 1; i--) {
-    
-//     router.all(`/${routes.name}/${route[i]}`, ctl[route[i]]);
-//   }
-// }
-
-// function addControllers(router) {
-//   let files = fs.readdirSync('../controllers')
-
-//   let controllerFiles = files.filter(f => {
-//     return f.endsWith('.js')
-//   })
-
-//   for (let i in controllerFiles) {
-//     console.log(`process controller: ${controllerFiles[i]}...`)
-//     let routes = require(`../controllers/${controllerFiles[i]}`)
-//     addRoutes(router, routes)
-//   }
-// }
-
-// module.exports = () => {
-//   let router = require('koa-router')()
-//   addControllers(router)
-//   return router.routes()
-// }
+module.exports = DB;

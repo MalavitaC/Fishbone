@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "mysql": "^2.15.0",
+    "sequelize": "^4.37.6",
+    "yarn.lock": "^0.0.1-security"
+  }
+}

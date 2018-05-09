@@ -4,7 +4,7 @@ class Provider{
 
 	constructor(name,dbManager) {
 
-			console.log(flag)
+		console.log(flag)
 		if (flag == false) {
 			console.log('init Provider')
 			flag = true;
@@ -13,7 +13,9 @@ class Provider{
 			this._dao = new Map();
 			this._controller = new Map();
 			// this._dbManager = dbManager;
-			this._models = {};
+			this._models = {
+				mysql:{}
+			};
 			this._mysqlModel = [];
 		}
 	}
@@ -35,9 +37,7 @@ class Provider{
 		let methods = Object.getOwnPropertyNames(controller.prototype);
 		// this._controller.set(name,{});
 		for (var i = methods.length - 1; i >= 0; i--) {
-			console.log(methods[i]) 
 			if (reg.test(methods[i])) {
-				console.log(methods[i].replace(/[\Action$]/g,""))
 				this._controller.set(`/${name}/${methods[i]}`, ctl[methods[i]])
 			}
 		}
@@ -46,13 +46,34 @@ class Provider{
 
 	async createRoute({router}){
 
-		console.log('createRoute')
-		console.log(this._controller)
 		for(let [k, v] of this._controller){
-			console.log(`${k}, ${v}`)
   			router.all(k, v);
 		}
 		return router;
+	}
+
+	/*
+	*	初始化model
+	*/
+	initModels(_db){
+		console.log(`实例化model`)
+		//循环注册过的model
+		this._model.forEach((model, key, map)=>{
+			
+			if(model.type === 'mysql'){
+				let _model = new model(_db);
+				// 初始化modle
+				let obj = _model.init();
+				this._mysqlModel.push(_model);
+				this._models['mysql'][_model.getTableName()] = obj;
+			}
+		});
+		//如果有mysql的model需要调用model的建立表之间关系的方法
+		this._mysqlModel.forEach((model, key, map)=>{
+			model.createRelationShip(this._models['mysql']);
+		});
+		//调用sync去同步表
+		_db.sync({force: false});
 	}
 	// constructor(dbManager){
 	// 	super("demo",dbManager);

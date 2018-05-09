@@ -17,8 +17,6 @@ class DB {
 
   static getTableName(name) {
 
-    console.log('getTableName')
-    console.log(this.tablePrefix)
     return `${this.tablePrefix}_${name}`;
   }
 };

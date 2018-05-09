@@ -3,7 +3,6 @@ const bodyParser = require('koa-bodyparser');
 const DB = require('./DB');
 const router = require('koa-router')();
 const app = new Koa();
-// const provider = new Provider();
 const port = 3001;
 // app.use(bodyParser());
 /**
@@ -20,7 +19,6 @@ class App{
 
 	async strat(data){
 
-		DB.getTableName();
 		console.log(`注册路由`)
 		this.route = await this.base.createRoute({router});
 		app.use(this.route.routes());
@@ -30,7 +28,11 @@ class App{
 	}
 
 	async createDb(){
+		//创建数据库连接
 		this.db.mysql = await DB.createMysql(this.config.db.mysql);
+		//传入mysql对象
+		// modelBase.setData(this.db.mysql);
+		await this.base.initModels(this.db.mysql);
 		return;
 	}
 }

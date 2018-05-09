@@ -1,11 +1,46 @@
-var User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-  },
-  lastName: {
-    type: Sequelize.STRING
-  }
-}, {
-  freezeTableName: true // Model 对应的表名将与model名相同
-});
+
+const MysqlBase = require('../../../Fishbone/MysqlBase');
+const Sequelize = require('sequelize');
+class Dome extends MysqlBase{
+
+	constructor(_db){
+		super(_db)
+	}
+
+	init(){
+        let model = this.createTable("dome",{
+			id:{
+				type: Sequelize.INTEGER(11).UNSIGNED,
+				primaryKey: true,
+				autoIncrement: true,
+				allowNull: false
+			},
+			user_id:{
+				type: Sequelize.INTEGER(11).UNSIGNED,
+				allowNull: false
+			},
+			msg: {
+				type:Sequelize.BLOB(),
+				allowNull: false
+			},
+			state:{
+				type:Sequelize.BOOLEAN(1),
+				defaultValue: 0
+			},
+		},
+		{
+			timestamps: true,
+			createdAt:'create_time',
+			updatedAt:'update_time',
+			freezeTableName: true,
+		});
+		return model;
+	}
+    createRelationShip(models){
+
+        // models.barrage_t.belongsTo(models.user, {foreignKey: 'user_id', as: 'user'});
+        // models.barrage_t.hasOne(models.barrage, {foreignKey: 'barrage_t_id', as: 'barrage'});
+        return;
+    }
+}
+module.exports = Dome;

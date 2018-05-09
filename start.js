@@ -12,7 +12,7 @@ class start{
 		await app.createDb();
 
 		//注册ctl、dao、model
-		await base.init();
+		// await base.init();
 
 		// 启动服务
 		await app.strat();

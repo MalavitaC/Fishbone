@@ -1,9 +1,12 @@
-const Sequelize = require('sequelize');
+/**
+ * 所有ctl父级。
+ * 包含所有dao实例
+ */
 
 class ControllerBase {
 
-  setDao(params) {
-
+  constructor(dao){
+    this.dao = dao;
   }
 };
 

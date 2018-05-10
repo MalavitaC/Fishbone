@@ -6,7 +6,6 @@ const app = new App({config, base});
 class start{
 
 	static async run(){
-		console.log('run')
 
 		//连接数据库
 		await app.createDb();

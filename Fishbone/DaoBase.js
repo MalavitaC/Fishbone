@@ -1,8 +1,12 @@
-const Sequelize = require('sequelize');
-
+/**
+ * 所有Dao父级
+ * 包含所有model模型
+ */
 class DaoBase {
 
-	setModel(params) {
+	constructor(db){
+		this.db = db;
 	}
+
 };
 module.exports = DaoBase;

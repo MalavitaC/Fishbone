@@ -19,7 +19,6 @@ class App{
 
 	async strat(data){
 
-		console.log(`注册路由`)
 		this.route = await this.base.createRoute({router});
 		app.use(this.route.routes());
 
@@ -32,7 +31,9 @@ class App{
 		this.db.mysql = await DB.createMysql(this.config.db.mysql);
 		//传入mysql对象
 		// modelBase.setData(this.db.mysql);
+		// this.base = new Base(this.db.mysql)
 		await this.base.initModels(this.db.mysql);
+		await this.base.createDao();
 		return;
 	}
 }

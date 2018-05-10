@@ -9,8 +9,8 @@ const dao = {};
 //Controller
 controller.test = require('./Controllers/test');
 
-// //dao
-// dao.wx = require('./dao/WxDao');
+//dao
+dao.test = require('./Dao/testDao');
 
 //model
 const db = glob.sync(`/model/**`, {root: dir,nodir: true,nocase: true});
@@ -19,14 +19,12 @@ class Base extends Provider{
 	constructor(){
 		super();
 
-		console.log('base')
-		for(let k of Object.keys(controller)){
-			this.registerController(k,controller[k]);
-		}
-
 		for(let v of Object.keys(db)){
 			this.registerModel(require(db[v].replace(/`${dir}server`/g, '.')));
 		}
+
+		this.registerDao(dao);
+		this.registerController(controller);
 	}
 }
 module.exports = new Base();

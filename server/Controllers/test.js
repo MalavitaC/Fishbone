@@ -2,13 +2,28 @@
  * [testController 测试文件]
  * @return {[type]} [description]
  */
-class testController {
+const ControllerBase = require('../../Fishbone/ControllerBase');
+var self;
+class testController extends ControllerBase{
+
+	constructor(dao){
+		super(dao);
+		self = this;
+	}
 
 	async wxAction(ctx, next){
-		console.log(ctx);
-		let data = ctx.request.query;
-		console.log(data);
-		ctx.body = 'holle,word';
+
+		try{
+			let data = ctx.request.query;
+			console.log(data);
+
+			console.log('==============');
+			console.log(self);
+			await self.dao['test'].test();
+			ctx.body = 'holle,word';
+		}catch(e){
+			console.log(e)
+		}
 	}
 };
 

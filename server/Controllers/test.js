@@ -3,6 +3,8 @@
  * @return {[type]} [description]
  */
 const ControllerBase = require('../../Fishbone/ControllerBase');
+const request = require('request');
+
 var self;
 class testController extends ControllerBase{
 
@@ -11,16 +13,29 @@ class testController extends ControllerBase{
 		self = this;
 	}
 
-	async wxAction(ctx, next){
+	async testAction(data){
 
 		try{
-			let data = ctx.request.query;
+			console.log(data);
+			console.log(this)
+			// console.log('==============');
+			// console.log(self);
+			// await self.dao['test'].test();
+			return 'Hello, world';
+		}catch(e){
+			console.log(e)
+		}
+	}
+
+	async indexAction(data){
+
+		try{
 			console.log(data);
 
-			console.log('==============');
-			console.log(self);
-			await self.dao['test'].test();
-			ctx.body = 'holle,word';
+			// console.log('==============');
+			// console.log(self);
+			// await self.dao['test'].test();
+			return 'Hello, world';
 		}catch(e){
 			console.log(e)
 		}

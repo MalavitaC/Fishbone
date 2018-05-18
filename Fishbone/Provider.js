@@ -30,12 +30,32 @@ class Provider{
 	}
 
 	async createRoute({router}){
+		//遍历所有controller
 		for(let k of Object.keys(this._controller)){
+			//实例化controller，传入Dao实例对象
 			let ctl = new this._controller[k](this._dao);
+			//获取controller里的所有方法
 			let methods = Object.getOwnPropertyNames(this._controller[k].prototype);
+			//遍历controller里的方法
 			for (var i = methods.length - 1; i >= 0; i--) {
+				//判断是否为接口方法
 				if (reg.test(methods[i])) {
-  					router.all(`/${k}/${methods[i].replace(reg, '')}`, ctl[methods[i]]);
+
+					let index = i;
+					//k:模块名 methods[i]:接口名
+  					router.all(`/${k}/${methods[i].replace(reg, '')}`, async (ctx, next)=>{
+
+  						let data = {
+  							params: {},
+  						};
+  						//合并请求参数
+						Object.assign(data.params, ctx.request.query, ctx.request.body);
+  						let body = await ctl[methods[index]](data);
+  						ctx.body = {
+  							code: 0,
+  							data: body,
+  						}
+  					});
 					// this._controller.set(`/${name}/${methods[i].replace(reg, '')}`, ctl[methods[i]])
 				}
 			}

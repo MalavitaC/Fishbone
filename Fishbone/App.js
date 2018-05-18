@@ -19,6 +19,27 @@ class App{
 
 	async strat(data){
 
+		//捕捉报错中间件
+		app.use(async(ctx, next)=>{
+			
+			try {
+				ctx.error = (code, message) => {
+					if (typeof code === 'string') {
+						message = code;
+						code = 500;
+					}
+					ctx.throw(code || 500, message || '服务器错误');
+				};
+				await next();
+			} catch (e) {
+				let status = e.status || 500;
+				let message = e.message || '服务器错误';
+				ctx.body = {
+					status,
+					message
+				};
+			}
+		});
 		this.route = await this.base.createRoute({router});
 		app.use(this.route.routes());
 
@@ -28,12 +49,15 @@ class App{
 
 	async createDb(){
 		//创建数据库连接
-		this.db.mysql = await DB.createMysql(this.config.db.mysql);
-		//传入mysql对象
-		// modelBase.setData(this.db.mysql);
-		// this.base = new Base(this.db.mysql)
-		await this.base.initModels(this.db.mysql);
-		await this.base.createDao();
+		
+		if(this.config.db.hasOwnProperty('mysql')){
+			this.db.mysql = await DB.createMysql(this.config.db.mysql);
+			//传入mysql对象
+			// modelBase.setData(this.db.mysql);
+			// this.base = new Base(this.db.mysql)
+			await this.base.initModels(this.db.mysql);
+			await this.base.createDao();
+		}
 		return;
 	}
 }

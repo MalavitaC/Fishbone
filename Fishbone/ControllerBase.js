@@ -11,7 +11,7 @@ class ControllerBase {
     this.dao = dao;
   }
 
-  error(status, message){
+  error(message, statu){
 
   	throw new f_error({status, message})
   }

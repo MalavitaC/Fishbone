@@ -32,16 +32,20 @@ class App{
 	}
 
 	async createDb(){
-		//创建数据库连接
 		
 		if(this.config.db.hasOwnProperty('mysql')){
+			//创建数据库连接
 			this.db.mysql = await DB.createMysql(this.config.db.mysql);
 			//传入mysql对象
 			// modelBase.setData(this.db.mysql);
 			// this.base = new Base(this.db.mysql)
-			await this.base.initModels(this.db.mysql);
-			await this.base.createDao();
 		}
+		if (this.config.db.hasOwnProperty('mongo')) {
+			//创建数据库连接
+			this.db.mongo = await DB.createMongo(this.config.db.mongo);
+		}
+		await this.base.initModels(this.db);
+		await this.base.createDao();
 		return;
 	}
 }

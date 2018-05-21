@@ -9,7 +9,7 @@ class MysqlBase {
 
     createTable(tableName,fields,options={}){
     	this.name = tableName;
-        tableName = DB.getTableName(tableName);
+        tableName = DB.getTableName(tableName, 'mysql');
         let model = this._db.define(tableName,fields,options);
         return model;
     }

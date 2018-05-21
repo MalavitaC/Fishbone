@@ -45,14 +45,6 @@ class Provider{
 					//k:模块名 methods[i]:接口名
   					router.all(`/${k}/${methods[i].replace(reg, '')}`, async (ctx, next)=>{
 
-  						// ctl.error = (code, msg)=>{
-  						// 	console.log('error')
-  						// 	new Error(msg);
-  						// 	ctx.body = {
-  						// 		code: code,
-  						// 		data: msg
-  						// 	}
-  						// };
   						let data = {
   							params: {},
   						};
@@ -64,7 +56,6 @@ class Provider{
   							data: body,
   						}
   					});
-					// this._controller.set(`/${name}/${methods[i].replace(reg, '')}`, ctl[methods[i]])
 				}
 			}
 		}
@@ -85,24 +76,26 @@ class Provider{
 		//循环注册过的model
 		this._model.forEach((model, key, map)=>{
 			
+			let _model = new model(_db);
+			// 初始化modle
+			let obj = _model.init();
 			if(model.type === 'mysql'){
-				let _model = new model(_db);
-				// 初始化modle
-				let obj = _model.init();
 				this._mysqlModel.push(_model);
 				this._models['mysql'][_model.getTableName()] = obj;
+			}else if (model.type === 'mongo') {
+
+				//mongo同步数据库
+        		this._db['mongo'].model(this.getTableName,obj);
+				this._models['mongo'][_model.getModelName()] = obj;
 			}
 		});
-
-		//将model注入daoBase
-		// new DaoBase(this._models);
 
 		//如果有mysql的model需要调用model的建立表之间关系的方法
 		this._mysqlModel.forEach((model, key, map)=>{
 			model.createRelationShip(this._models['mysql']);
 		});
 		//调用sync去同步表
-		_db.sync({force: false});
+		_db['mysql'].sync({force: false});
 	}
 	// constructor(dbManager){
 	// 	super("demo",dbManager);

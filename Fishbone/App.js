@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const DB = require('./DB');
+const middleware = require('./Middleware');
 const router = require('koa-router')();
 const app = new Koa();
 const port = 3001;
@@ -20,26 +21,9 @@ class App{
 	async strat(data){
 
 		//捕捉报错中间件
-		app.use(async(ctx, next)=>{
-			
-			try {
-				ctx.error = (code, message) => {
-					if (typeof code === 'string') {
-						message = code;
-						code = 500;
-					}
-					ctx.throw(code || 500, message || '服务器错误');
-				};
-				await next();
-			} catch (e) {
-				let status = e.status || 500;
-				let message = e.message || '服务器错误';
-				ctx.body = {
-					status,
-					message
-				};
-			}
-		});
+		app.use(middleware.error);
+
+		//注册路由
 		this.route = await this.base.createRoute({router});
 		app.use(this.route.routes());
 

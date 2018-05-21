@@ -45,6 +45,14 @@ class Provider{
 					//k:模块名 methods[i]:接口名
   					router.all(`/${k}/${methods[i].replace(reg, '')}`, async (ctx, next)=>{
 
+  						// ctl.error = (code, msg)=>{
+  						// 	console.log('error')
+  						// 	new Error(msg);
+  						// 	ctx.body = {
+  						// 		code: code,
+  						// 		data: msg
+  						// 	}
+  						// };
   						let data = {
   							params: {},
   						};

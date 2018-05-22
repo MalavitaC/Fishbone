@@ -1,4 +1,4 @@
-const MongoBase = require('iot-cloud-core').DB.MongoBase;
+const MongoBase = require('../../../Fishbone/MongoBase');
 class JackpotModel extends MongoBase {
     constructor(_db){
         super(_db)

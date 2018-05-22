@@ -1,9 +1,11 @@
 {
   "dependencies": {
     "glob": "^7.1.2",
+    "kcors": "^2.2.1",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
+    "mongoose": "^5.1.2",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.3",
     "request": "^2.86.0",

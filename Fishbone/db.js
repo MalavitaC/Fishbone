@@ -7,7 +7,7 @@ class DB {
 
     try{
       this.mysql = {
-        tablePrefix = options.tablePrefix
+        tablePrefix: options.tablePrefix
       }
       var sequelize = new Sequelize(options.dbname,options.username,options.password,options.options);
       console.log('mysql连接')
@@ -20,15 +20,17 @@ class DB {
 
   static getTableName(name, db) {
 
+    console.log(db)
+    console.log(this[db])
     return `${this[db].tablePrefix}_${name}`;
   }
 
 
   static async createMongo(options) {
-
+    console.log('createMongo')
     try{
       this.mongo = {
-        tablePrefix = options.tablePrefix
+        tablePrefix: options.tablePrefix
       }
       var db = mongoose.createConnection(options.url); 
       db.on('open',(msg)=>{

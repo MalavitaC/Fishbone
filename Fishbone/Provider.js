@@ -9,7 +9,8 @@ class Provider{
 		// this._controller = new Map();
 		// this._dbManager = dbManager;
 		this._models = {
-			mysql:{}
+			mysql:{},
+			mongo:{}
 		};
 		this._mysqlModel = [];
 	}
@@ -72,21 +73,17 @@ class Provider{
 	/*
 	*	初始化model
 	*/
-	async initModels(_db){
+	async initMysqlModels(_db){
 		//循环注册过的model
+			console.log('--------------------')
 		this._model.forEach((model, key, map)=>{
-			
-			let _model = new model(_db);
-			// 初始化modle
-			let obj = _model.init();
-			if(model.type === 'mysql'){
-				this._mysqlModel.push(_model);
-				this._models['mysql'][_model.getTableName()] = obj;
-			}else if (model.type === 'mongo') {
 
-				//mongo同步数据库
-        		this._db['mongo'].model(this.getTableName,obj);
-				this._models['mongo'][_model.getModelName()] = obj;
+			if(model.type === 'mysql'){
+				let _model = new model(_db[model.type]);
+				// 初始化modle
+				let obj = _model.init();
+				this._mysqlModel.push(_model);
+				this._models[model.type][_model.getTableName()] = obj;
 			}
 		});
 
@@ -96,6 +93,25 @@ class Provider{
 		});
 		//调用sync去同步表
 		_db['mysql'].sync({force: false});
+	}
+
+	/*
+	*	初始化model
+	*/
+	async initMongoModels(_db){
+		//循环注册过的model
+		this._model.forEach((model, key, map)=>{
+			
+			if (model.type === 'mongo') {
+
+				let _model = new model(_db[model.type]);
+				// 初始化modle
+				let obj = _model.init();
+				//mongo同步数据库
+        		_db[model.type].model(this.getTableName,obj);
+				this._models[model.type][_model.getModelName()] = obj;
+			}
+		});
 	}
 	// constructor(dbManager){
 	// 	super("demo",dbManager);

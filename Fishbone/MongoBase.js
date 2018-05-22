@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
 const DB = require('./DB');
 
 class MongoBase {
@@ -10,8 +10,8 @@ class MongoBase {
     createTable(tableName,fields){
         this.name = tableName;
         this.tableName = DB.getTableName(tableName, 'mongo');
-        let model = mongoose.Schema(fields, {collection: this.name,bufferCommands: false});
-        model.set('collection', this.TableName);
+        let model = mongoose.Schema(fields, {collection: this.tableName,bufferCommands: false});
+        model.set('collection', this.tableName);
         return model;
     }
 

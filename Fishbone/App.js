@@ -1,11 +1,11 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const DB = require('./DB');
+const kcors = require('kcors')();
 const middleware = require('./Middleware');
 const router = require('koa-router')();
 const app = new Koa();
 const port = 3001;
-// app.use(bodyParser());
 /**
  * 控制器启动文件
  */
@@ -20,6 +20,8 @@ class App{
 
 	async strat(data){
 
+		app.use(bodyParser());
+        app.use(kcors);
 		//捕捉报错中间件
 		app.use(middleware.error);
 
@@ -39,12 +41,13 @@ class App{
 			//传入mysql对象
 			// modelBase.setData(this.db.mysql);
 			// this.base = new Base(this.db.mysql)
+			await this.base.initMysqlModels(this.db);
 		}
 		if (this.config.db.hasOwnProperty('mongo')) {
 			//创建数据库连接
 			this.db.mongo = await DB.createMongo(this.config.db.mongo);
+			await this.base.initMongoModels(this.db);
 		}
-		await this.base.initModels(this.db);
 		await this.base.createDao();
 		return;
 	}

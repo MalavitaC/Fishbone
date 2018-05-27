@@ -11,10 +11,18 @@ class ControllerBase {
     this.dao = dao;
   }
 
-  error(message, statu){
+  error(message, status){
 
   	throw new f_error({status, message})
   }
+
+  checkKeyExists(map, ...keys) {
+
+		for(let key of keys){
+			if (!(key in map))
+				this.error(`${key} is undefined`, 50002);
+		}
+	}
 };
 
 module.exports = ControllerBase;

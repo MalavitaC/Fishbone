@@ -9,13 +9,14 @@ class Middleware{
 		} catch (e) {
 			
 			console.log(e)
-			let status = e.status || 500;
+			let code = e.status || 500;
 			let message = e.message || '服务器错误';
 			ctx.body = {
-				status,
+				code,
 				message
 			};
 		}
 	}
+
 }
 module.exports = new Middleware();

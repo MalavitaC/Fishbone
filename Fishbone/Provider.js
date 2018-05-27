@@ -96,7 +96,7 @@ class Provider{
 	}
 
 	/*
-	*	初始化model
+	*	初始化Mongo的model
 	*/
 	async initMongoModels(_db){
 		//循环注册过的model
@@ -108,8 +108,7 @@ class Provider{
 				// 初始化modle
 				let obj = _model.init();
 				//mongo同步数据库
-        		_db[model.type].model(this.getTableName,obj);
-				this._models[model.type][_model.getModelName()] = obj;
+				this._models[model.type][_model.getModelName()] = _db[model.type].model(_model.getTableName(),obj);
 			}
 		});
 	}

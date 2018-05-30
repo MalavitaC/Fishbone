@@ -1,5 +1,5 @@
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
+const bodyParser = require('koa-better-body');
 const DB = require('./DB');
 const kcors = require('kcors')();
 const middleware = require('./Middleware');

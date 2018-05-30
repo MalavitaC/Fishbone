@@ -75,7 +75,6 @@ class Provider{
 	*/
 	async initMysqlModels(_db){
 		//循环注册过的model
-			console.log('--------------------')
 		this._model.forEach((model, key, map)=>{
 
 			if(model.type === 'mysql'){
@@ -86,6 +85,7 @@ class Provider{
 				this._models[model.type][_model.getTableName()] = obj;
 			}
 		});
+		this._models['mysql'].model = _db['mysql'];
 
 		//如果有mysql的model需要调用model的建立表之间关系的方法
 		this._mysqlModel.forEach((model, key, map)=>{

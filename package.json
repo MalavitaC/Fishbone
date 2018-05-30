@@ -3,6 +3,7 @@
     "glob": "^7.1.2",
     "kcors": "^2.2.1",
     "koa": "^2.5.0",
+    "koa-better-body": "^3.0.4",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "mongoose": "^5.1.2",

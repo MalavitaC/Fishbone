@@ -25,8 +25,7 @@ class App{
 		//捕捉报错中间件
 		app.use(middleware.error);
 
-		//注册路由
-		this.route = await this.base.createRoute({router});
+		//注册路由中间件
 		app.use(this.route.routes());
 
 		console.log(`项目启动,端口号：${this.config.port || port}`)
@@ -49,6 +48,8 @@ class App{
 			await this.base.initMongoModels(this.db);
 		}
 		await this.base.createDao();
+		//注册ctl
+		this.route = await this.base.createRoute({router});
 		return;
 	}
 }

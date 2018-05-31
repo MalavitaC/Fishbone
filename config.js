@@ -4,12 +4,12 @@
 module.exports = {
 	db:{
 		mysql:{
-			dbname:'al_test',
+			dbname:'raffled',
 			username:'root',
-			password:"100200cai",//111111
+			password:"111111",//111111
 			tablePrefix:"wx",
 			options:{
-				host:"115.159.53.186",
+				host:"127.0.0.1",
 				dialect: 'mysql',
 				pool: {
 					max: 5,

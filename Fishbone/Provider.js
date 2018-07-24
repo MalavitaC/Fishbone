@@ -50,7 +50,7 @@ class Provider{
   							params: {},
   						};
   						//合并请求参数
-						Object.assign(data.params, ctx.request.query, ctx.request.body);
+						Object.assign(data.params, ctx.request.query, ctx.request.body, ctx.request.files, ctx.request.fields);
   						let body = await ctl[methods[index]](data);
   						ctx.body = {
   							code: 0,

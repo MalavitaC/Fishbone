@@ -1,16 +1,35 @@
 {
-  "dependencies": {
-    "glob": "^7.1.2",
-    "kcors": "^2.2.1",
-    "koa": "^2.5.0",
-    "koa-better-body": "^3.0.4",
-    "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.4.0",
-    "mongoose": "^5.1.2",
-    "mysql": "^2.15.0",
-    "mysql2": "^1.5.3",
-    "request": "^2.86.0",
-    "sequelize": "^4.37.6",
-    "yarn.lock": "^0.0.1-security"
-  }
+    "name": "fishbone_c",
+    "version": "1.0.1",
+    "description": "鱼骨框架",
+    "main": "index.js",
+    "author": "鲨鱼爱喝茶",
+    "license": "ISC",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/923145852/Fishbone.git"
+    },
+    "keywords": [
+        "koa",
+        "node"
+    ],
+    "bugs": {
+        "url": "https://github.com/923145852/Fishbone/issues"
+    },
+    "homepage": "https://github.com/923145852/Fishbone/blob/master/README.md",
+    "dependencies": {
+        "kcors": "^2.2.1",
+        "koa": "^2.5.0",
+        "koa-better-body": "^3.0.4",
+        "koa-router": "^7.4.0",
+        "mongoose": "^5.1.2",
+        "mysql": "^2.15.0",
+        "mysql2": "^1.5.3",
+        "request": "^2.86.0",
+        "sequelize": "^4.37.6",
+        "yarn.lock": "^0.0.1-security"
+    }
 }

@@ -23,6 +23,7 @@ class ControllerBase {
 				this.error(`${key} is undefined`, 50002);
 		}
 	}
+
 };
 
 module.exports = ControllerBase;

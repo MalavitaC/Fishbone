@@ -9,7 +9,7 @@ class testController extends ControllerBase{
 
 	constructor(dao){
 		super(dao);
-	}
+	};
 
 	async testAction(data){
 
@@ -20,7 +20,7 @@ class testController extends ControllerBase{
 		this.error(50001, '报错')
 		// await this.dao['test'].test();
 		return 'Hello, world';
-	}
+	};
 
 	async indexAction(data){
 
@@ -33,6 +33,5 @@ class testController extends ControllerBase{
 		}
 	}
 };
-
 module.exports = testController;
 

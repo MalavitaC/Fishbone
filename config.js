@@ -39,4 +39,5 @@ module.exports = {
 	},
 	port:3001,
 	secret: 'dome',
+	noAuth: [/\/test\/index/],
 }

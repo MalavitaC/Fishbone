@@ -48,9 +48,10 @@ class Provider{
 
   						let data = {
   							params: {},
+  							user: ctx.state.user,
   						};
   						//合并请求参数
-						Object.assign(data.params, ctx.request.query, ctx.request.body, ctx.request.files, ctx.request.fields);
+						Object.assign(data.params, ctx.request.query, ctx.request.body, ctx.request.fields);
   						let body = await ctl[methods[index]](data);
   						ctx.body = {
   							code: 0,

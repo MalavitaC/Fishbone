@@ -9,7 +9,6 @@ class Middleware{
 		} catch (e) {
 			
 			console.log(e)
-
 			let code,
 			message;
 			if (e.status === 401) {

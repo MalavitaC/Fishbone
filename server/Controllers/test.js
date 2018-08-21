@@ -13,11 +13,10 @@ class testController extends ControllerBase{
 
 	async testAction(data){
 
-		console.log(data);
-		console.log(this)
+		console.log(JSON.stringify(data));
 		// console.log('==============');
 		// console.log(self);
-		this.error(50001, '报错')
+		this.error('报错', '50001')
 		// await this.dao['test'].test();
 		return 'Hello, world';
 	};

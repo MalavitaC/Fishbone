@@ -26,7 +26,7 @@ class App{
 		//捕捉报错中间件
 		app.use(middleware.error);
 		//jwt验证中间件
-		app.use(jwt({secret: this.config.secret}).unless({path: [/\/test\/index/]}))
+		app.use(jwt({secret: this.config.secret}).unless({path: this.config.noAuth}));
 		//注册路由中间件
 		app.use(this.route.routes());
 

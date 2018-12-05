@@ -21,7 +21,11 @@ class App{
 
 	async strat(data){
 
-		app.use(bodyParser());
+		app.use(bodyParser({
+			"formLimit": "20mb",
+			"jsonLimit": "20mb",
+			"textLimit": "20mb"
+		}));
         app.use(kcors);
 		//捕捉报错中间件
 		app.use(middleware.error);

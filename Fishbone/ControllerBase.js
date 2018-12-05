@@ -22,6 +22,7 @@ class ControllerBase {
 			if (!(key in map))
 				this.error(`${key} is undefined`, 50002);
 		}
+    return map;
 	}
 
 };

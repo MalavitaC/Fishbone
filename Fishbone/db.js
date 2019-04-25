@@ -5,13 +5,13 @@ class DB {
 
   static async createMysql(options) {
 
-    try{
+    try {
       this.mysql = {
         tablePrefix: options.tablePrefix
       }
-      var sequelize = new Sequelize(options.dbname,options.username,options.password,options.options);
+      var sequelize = new Sequelize(options.dbname, options.username, options.password, options.options);
       console.log('mysql连接')
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
 
@@ -20,46 +20,44 @@ class DB {
 
   static getTableName(name, db) {
 
-    console.log(db)
-    console.log(this[db])
     return `${this[db].tablePrefix}_${name}`;
   }
 
 
   static async createMongo(options) {
     console.log('createMongo')
-    try{
+    try {
       this.mongo = {
         tablePrefix: options.tablePrefix
       }
-      var db = mongoose.createConnection(options.url); 
-      db.on('open',(msg)=>{
+      var db = mongoose.createConnection(options.url);
+      db.on('open', (msg) => {
         console.log(`open db:${options.url}`)
         // log4js.server.info(`open db:${options.url}`);
       });
-      db.on('reconnected',(msg)=>{
+      db.on('reconnected', (msg) => {
         console.log("reconnected")
         // log4js.server.info("reconnected");
       });
-      db.on('disconnected',(msg)=>{
+      db.on('disconnected', (msg) => {
         console.log("disconnected")
         // log4js.server.info("disconnected");
       });
-      db.on('close',(msg)=>{
+      db.on('close', (msg) => {
         console.log("close")
         // log4js.server.info("close");
       });
-      db.on('connected',(msg)=>{
+      db.on('connected', (msg) => {
 
         console.log(`connected to:${options.url}`)
         // log4js.server.info(`connected to:${options.url}`);
       });
-      db.on('error',(msg)=>{
+      db.on('error', (msg) => {
         console.err(msg);
       });
       // this.dbPromise = new Promise((r,j)=>{
       // });
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
 

@@ -1,16 +1,15 @@
 
-class Middleware{
+class Middleware {
 
-	async error(ctx, next){
+	async error(ctx, next) {
 
 		try {
 
 			await next();
 		} catch (e) {
-			
-			console.log(e)
+
 			let code,
-			message;
+				message;
 			if (e.status === 401) {
 				code = e.status;
 				message = `鉴权报错：${e.originalError ? e.originalError.message : e.message}`;

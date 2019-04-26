@@ -30,6 +30,7 @@
         "mongoose": "^5.1.2",
         "mysql": "^2.15.0",
         "mysql2": "^1.5.3",
+        "package.json": "^2.0.1",
         "request": "^2.86.0",
         "sequelize": "^4.37.6",
         "yarn.lock": "^0.0.1-security"

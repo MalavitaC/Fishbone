@@ -23,9 +23,9 @@ class testController extends ControllerBase{
 
 	async indexAction(data){
 
+        this.error(400, '错误')
 		try{
 			console.log(data);
-
 			return 'Hello, world';
 		}catch(e){
 			console.log(e)

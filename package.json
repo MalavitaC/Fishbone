@@ -24,15 +24,18 @@
         "glob": "^7.1.2",
         "kcors": "^2.2.1",
         "koa": "^2.5.0",
-        "koa-better-body": "^3.0.4",
+        "koa-body": "^4.1.0",
         "koa-jwt": "^3.3.2",
         "koa-router": "^7.4.0",
         "mongoose": "^5.1.2",
         "mysql": "^2.15.0",
         "mysql2": "^1.5.3",
         "package.json": "^2.0.1",
-        "request": "^2.86.0",
         "sequelize": "^4.37.6",
         "yarn.lock": "^0.0.1-security"
+    },
+    "devDependencies": {
+        "@types/koa": "^2.0.48",
+        "@types/koa-router": "^7.0.40"
     }
 }

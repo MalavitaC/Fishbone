@@ -2,20 +2,18 @@
  * [testController 测试文件]
  * @return {[type]} [description]
  */
-import { provider } from '../../TFishbone/Provider';
-
+import {routers} from '../../TFishbone/Router';
 
 class testController{
 
-	@provider.get('/')
+	@routers.get('/')
 	async tsTest (){
-        console.log('你好，世界')
         return {
             data: '你好，世界'
         }
     }
     
-	@provider.get('/test')
+	@routers.get('/test')
 	async tsTest2 (){
 
 	}

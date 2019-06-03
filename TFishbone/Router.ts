@@ -1,11 +1,11 @@
 import router from 'koa-router';
 
-const _router = new router();
+const Router = new router();
 const methods = ['get', 'post', 'patch', 'del', 'options', 'put']
 interface Decorator {
     (target: any, propertyKey: string,descriptor: PropertyDescriptor): any
 }
-export interface provider extends _provider {
+interface IRouters extends _routers {
 
     post(url: string): Decorator
 
@@ -21,23 +21,20 @@ export interface provider extends _provider {
 
 }
 
-class _provider {
+class _routers implements Partial<IRouters> {
     
     getRoute(): any {
-        return _router
+        return Router
     }
 }
 
 
 methods.forEach((httpMethod: string) => {
-    Object.defineProperty(_provider.prototype, httpMethod, {
+    Reflect.defineProperty(_routers.prototype, httpMethod, {
         get: function () {
             return (url: string) => {
                 return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-					console.log(target)
-					console.log(propertyKey)
-                    console.log(descriptor)
-                    return (<any>_router)[httpMethod](url, async (ctx: any, next: Function)=>{
+                    return (<any>Router)[httpMethod](url, async (ctx: any, next: Function)=>{
 
                         let data = {
                             params: {},
@@ -57,4 +54,4 @@ methods.forEach((httpMethod: string) => {
     })
 })
 
-export const provider : provider = <any>new _provider
+export const routers = <any>new _routers
